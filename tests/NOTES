@@ -1,0 +1,3 @@
+- Opera is not tested since BrowserStack seems to only support version 12.5 & 12.6 for automated tests, and those do not
+support MutationObserver.
+- Real mobile devices also seem to be unable to connect via the local tunnel, so are not tested either.

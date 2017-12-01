@@ -1,0 +1,6 @@
+/.idea/
+/node_modules/
+/vendor/
+/watchers.xml
+/composer.lock
+/package-lock.json

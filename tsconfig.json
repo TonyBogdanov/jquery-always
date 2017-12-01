@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "declaration": true,
+        "disableSizeLimit": true,
+        "downlevelIteration": true,
+        "pretty": true,
+        "removeComments": true,
+        "stripInternal": true,
+        "target": "es5",
+        "lib": ["dom", "es5", "es6"],
+        "module": "system"
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

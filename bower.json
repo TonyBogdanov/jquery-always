@@ -1,0 +1,28 @@
+{
+  "name": "jquery-always",
+  "description": "A jQuery plugin to execute callbacks on dynamically inserted elements",
+  "main": "always.ts",
+  "authors": [
+    "Tony Bogdanov <support@tonybogdanov.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "jquery",
+    "always",
+    "never",
+    "livequery",
+    "mutationobserver",
+    "observer",
+    "ajax",
+    "xhr"
+  ],
+  "homepage": "https://github.com/TonyBogdanov/jquery-always",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ]
+}

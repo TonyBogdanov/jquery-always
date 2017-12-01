@@ -1,0 +1,19 @@
+{
+    "name": "tonybogdanov/jquery-always",
+    "description": "A jQuery plugin to execute callbacks on dynamically inserted elements",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tony Bogdanov",
+            "email": "support@tonybogdanov.com"
+        }
+    ],
+    "scripts": {
+        "test": "php vendor/tonybogdanov/browserstack-tester/bin/bst.php test"
+    },
+    "minimum-stability": "dev",
+    "require-dev": {
+        "tonybogdanov/browserstack-tester": "dev-master"
+    }
+}

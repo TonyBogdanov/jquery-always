@@ -1,0 +1,20 @@
+{
+    "name": "jquery-always",
+    "version": "1.0.0",
+    "description": "A jQuery plugin to execute callbacks on dynamically inserted elements",
+    "main": "always.ts",
+    "scripts": {
+        "test": "php vendor/tonybogdanov/browserstack-tester/bin/bst.php test"
+    },
+    "author": "Tony Bogdanov <support@tonybogdanov.com>",
+    "license": "MIT",
+    "repository": "https://github.com/TonyBogdanov/jquery-always",
+    "devDependencies": {
+        "@types/jquery": "^3.2.16",
+        "@types/chai": "^4.0.5",
+        "@types/mocha": "^2.2.44",
+        "jquery": "^1.12.4",
+        "chai": "^4.1.2",
+        "mocha": "^4.0.1"
+    }
+}

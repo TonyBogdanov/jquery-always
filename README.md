@@ -1,7 +1,7 @@
 # jQuery Always
 
 [![Build Status](https://travis-ci.org/TonyBogdanov/jquery-always.svg?branch=master)](https://travis-ci.org/TonyBogdanov/jquery-always)
-[![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=b0pZQ291ZURCT2VIb3I1aFV3bmNibUc0UXUraVNzUmQ4cDJhMXpHVEEvST0tLVdHME5tcFo1TnFEYlRzaEczWGpoZ2c9PQ==--924d30b80e08372598f971d7431d5fffc092a3c2)](https://www.browserstack.com/automate/public-build/b0pZQ291ZURCT2VIb3I1aFV3bmNibUc0UXUraVNzUmQ4cDJhMXpHVEEvST0tLVdHME5tcFo1TnFEYlRzaEczWGpoZ2c9PQ==--924d30b80e08372598f971d7431d5fffc092a3c2)
+[![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=QlU3M2s4eWwzVFhqbWsyY2RzTCtGdkJFTXlwbTlGR1pLWklySFN6L3pyZz0tLURxdTJKcXpuMGZEZEVFQzJEbndyTVE9PQ==--328cbf02376869ea34de56e7c409de7c5e059f15)](https://www.browserstack.com/automate/public-build/QlU3M2s4eWwzVFhqbWsyY2RzTCtGdkJFTXlwbTlGR1pLWklySFN6L3pyZz0tLURxdTJKcXpuMGZEZEVFQzJEbndyTVE9PQ==--328cbf02376869ea34de56e7c409de7c5e059f15)
 [![Buy Me a Coffee](http://static.tonybogdanov.com/github/coffee.svg)](http://ko-fi.co/1236KUKJNC96B)
 
 This is a [jQuery](https://jquery.org) plugin that enables you to execute callbacks anytime an element matching a specified selector is added to the DOM.

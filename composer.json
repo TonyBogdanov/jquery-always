@@ -12,8 +12,7 @@
     "scripts": {
         "test": "php vendor/tonybogdanov/browserstack-tester/bin/bst.php test"
     },
-    "minimum-stability": "dev",
     "require-dev": {
-        "tonybogdanov/browserstack-tester": "dev-master"
+        "tonybogdanov/browserstack-tester": "^1.0"
     }
 }

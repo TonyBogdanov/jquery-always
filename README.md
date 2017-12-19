@@ -1,7 +1,10 @@
 # jQuery Always
 
+[![Latest Stable Version](https://poser.pugx.org/tonybogdanov/jquery-always/v/stable)](https://packagist.org/packages/tonybogdanov/jquery-always)
 [![Build Status](https://travis-ci.org/TonyBogdanov/jquery-always.svg?branch=master)](https://travis-ci.org/TonyBogdanov/jquery-always)
 [![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=QlU3M2s4eWwzVFhqbWsyY2RzTCtGdkJFTXlwbTlGR1pLWklySFN6L3pyZz0tLURxdTJKcXpuMGZEZEVFQzJEbndyTVE9PQ==--328cbf02376869ea34de56e7c409de7c5e059f15)](https://www.browserstack.com/automate/public-build/QlU3M2s4eWwzVFhqbWsyY2RzTCtGdkJFTXlwbTlGR1pLWklySFN6L3pyZz0tLURxdTJKcXpuMGZEZEVFQzJEbndyTVE9PQ==--328cbf02376869ea34de56e7c409de7c5e059f15)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/TonyBogdanov/jquery-always/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/TonyBogdanov/jquery-always/?branch=master)
+[![License](https://poser.pugx.org/tonybogdanov/jquery-always/license)](https://packagist.org/packages/tonybogdanov/jquery-always)
 [![Buy Me a Coffee](http://static.tonybogdanov.com/github/coffee.svg)](http://ko-fi.co/1236KUKJNC96B)
 
 This is a [jQuery](https://jquery.org) plugin that enables you to execute callbacks anytime an element matching a specified selector is added to the DOM.

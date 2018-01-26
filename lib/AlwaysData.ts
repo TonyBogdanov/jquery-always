@@ -5,6 +5,6 @@ export class AlwaysData
     static readonly OPERATION_INSERTION: number = 0;
     static readonly OPERATION_REMOVAL: number = 1;
 
-    public instance: Always;
-    public lastOperation: number;
+    public instance: Always = null;
+    public lastOperation: number = null;
 }

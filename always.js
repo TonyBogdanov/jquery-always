@@ -5,6 +5,8 @@ jQuery = jQuery && jQuery.hasOwnProperty('default') ? jQuery['default'] : jQuery
 
 var AlwaysData = /** @class */ (function () {
     function AlwaysData() {
+        this.instance = null;
+        this.lastOperation = null;
     }
     AlwaysData.OPERATION_INSERTION = 0;
     AlwaysData.OPERATION_REMOVAL = 1;
@@ -191,6 +193,34 @@ var Always = /** @class */ (function () {
         return this;
     };
     /**
+     * Notifies the specified callbacks for the specified operation on the specified element.
+     * This is a convenience method for notifyInserted and notifyRemoved.
+     *
+     * @param {HTMLElement} element
+     * @param {{[p: string]: (() => void)[]}} callbacks
+     * @param {number} operation
+     * @returns {Always}
+     */
+    Always.prototype.notifyCallbacks = function (element, callbacks, operation) {
+        // make the element manageable & prevent duplicate invocations
+        // even making every single node in the Dom manageable is still much faster that matching it against a selector
+        var data = Always.data(element);
+        if (operation === data.lastOperation) {
+            return this;
+        }
+        // traverse requested callbacks & invoke those for which the element matches the corresponding selector
+        // also update the AlwaysData.lastOperation to prevent future duplicate invocations
+        Object.keys(callbacks).forEach(function (selector) {
+            if (element.matches(selector)) {
+                callbacks[selector].forEach(function (callback) {
+                    data.lastOperation = operation;
+                    callback.call(element);
+                });
+            }
+        });
+        return this;
+    };
+    /**
      * Notifies all registered callbacks about an insertion, if the corresponding selector matches the node.
      *
      * @param {HTMLElement} element
@@ -198,21 +228,10 @@ var Always = /** @class */ (function () {
      */
     Always.prototype.notifyInserted = function (element) {
         var _this = this;
-        // ignore duplicate invocations
-        var data = Always.data(element);
-        if (AlwaysData.OPERATION_INSERTION === data.lastOperation) {
-            return this;
-        }
-        data.lastOperation = AlwaysData.OPERATION_INSERTION;
-        Object.keys(this.insertedCallbacks).forEach(function (selector) {
-            if (element.matches(selector)) {
-                _this.insertedCallbacks[selector].forEach(function (callback) {
-                    callback.call(element);
-                });
-            }
-        });
+        // callbacks for insertions are invoked for parents first
+        this.notifyCallbacks(element, this.insertedCallbacks, AlwaysData.OPERATION_INSERTION);
         // we need to manually cascade notify all child nodes as the observer won't do it automatically
-        [].forEach.call(element.querySelectorAll('*'), function (node) {
+        [].forEach.call(element.children, function (node) {
             _this.notifyInserted(node);
         });
         return this;
@@ -225,23 +244,12 @@ var Always = /** @class */ (function () {
      */
     Always.prototype.notifyRemoved = function (element) {
         var _this = this;
-        // ignore duplicate invocations
-        var data = Always.data(element);
-        if (AlwaysData.OPERATION_REMOVAL === data.lastOperation) {
-            return this;
-        }
-        data.lastOperation = AlwaysData.OPERATION_REMOVAL;
         // we need to manually cascade notify all child nodes as the observer won't do it automatically
-        [].forEach.call(element.querySelectorAll('*'), function (node) {
+        [].forEach.call(element.children, function (node) {
             _this.notifyRemoved(node);
         });
-        Object.keys(this.removedCallbacks).forEach(function (selector) {
-            if (element.matches(selector)) {
-                _this.removedCallbacks[selector].forEach(function (callback) {
-                    callback.call(element);
-                });
-            }
-        });
+        // callbacks for removals are invoked for deepest children first
+        this.notifyCallbacks(element, this.removedCallbacks, AlwaysData.OPERATION_REMOVAL);
         return this;
     };
     /**

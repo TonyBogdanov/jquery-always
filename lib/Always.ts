@@ -196,6 +196,41 @@ export class Always
     }
 
     /**
+     * Notifies the specified callbacks for the specified operation on the specified element.
+     * This is a convenience method for notifyInserted and notifyRemoved.
+     *
+     * @param {HTMLElement} element
+     * @param {{[p: string]: (() => void)[]}} callbacks
+     * @param {number} operation
+     * @returns {Always}
+     */
+    protected notifyCallbacks(
+        element: HTMLElement,
+        callbacks: { [key: string]: ((this: HTMLElement) => void)[] },
+        operation: number
+    ): Always {
+        // make the element manageable & prevent duplicate invocations
+        // even making every single node in the Dom manageable is still much faster that matching it against a selector
+        let data = Always.data(element);
+        if (operation === data.lastOperation) {
+            return this;
+        }
+
+        // traverse requested callbacks & invoke those for which the element matches the corresponding selector
+        // also update the AlwaysData.lastOperation to prevent future duplicate invocations
+        Object.keys(callbacks).forEach(selector => {
+            if (element.matches(selector)) {
+                callbacks[selector].forEach(callback => {
+                    data.lastOperation = operation;
+                    callback.call(element);
+                });
+            }
+        });
+
+        return this;
+    }
+
+    /**
      * Constructor.
      *
      * @param {HTMLElement} element
@@ -239,25 +274,11 @@ export class Always
      */
     public notifyInserted(element: HTMLElement): Always
     {
-        // ignore duplicate invocations
-        let data = Always.data(element);
-
-        if (AlwaysData.OPERATION_INSERTION === data.lastOperation) {
-            return this;
-        }
-
-        data.lastOperation = AlwaysData.OPERATION_INSERTION;
-
-        Object.keys(this.insertedCallbacks).forEach(selector => {
-            if (element.matches(selector)) {
-                this.insertedCallbacks[selector].forEach(callback => {
-                    callback.call(element);
-                });
-            }
-        });
+        // callbacks for insertions are invoked for parents first
+        this.notifyCallbacks(element, this.insertedCallbacks, AlwaysData.OPERATION_INSERTION);
 
         // we need to manually cascade notify all child nodes as the observer won't do it automatically
-        [].forEach.call(element.querySelectorAll('*'), (node: HTMLElement) => {
+        [].forEach.call(element.children, (node: HTMLElement) => {
             this.notifyInserted(node);
         });
 
@@ -272,27 +293,13 @@ export class Always
      */
     public notifyRemoved(element: HTMLElement): Always
     {
-        // ignore duplicate invocations
-        let data = Always.data(element);
-
-        if (AlwaysData.OPERATION_REMOVAL === data.lastOperation) {
-            return this;
-        }
-
-        data.lastOperation = AlwaysData.OPERATION_REMOVAL;
-
         // we need to manually cascade notify all child nodes as the observer won't do it automatically
-        [].forEach.call(element.querySelectorAll('*'), (node: HTMLElement) => {
+        [].forEach.call(element.children, (node: HTMLElement) => {
             this.notifyRemoved(node);
         });
 
-        Object.keys(this.removedCallbacks).forEach(selector => {
-            if (element.matches(selector)) {
-                this.removedCallbacks[selector].forEach(callback => {
-                    callback.call(element);
-                });
-            }
-        });
+        // callbacks for removals are invoked for deepest children first
+        this.notifyCallbacks(element, this.removedCallbacks, AlwaysData.OPERATION_REMOVAL);
 
         return this;
     }

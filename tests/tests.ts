@@ -358,5 +358,32 @@ import chai from "chai";
                 done();
             });
         });
+
+        it('Issuing multiple additions / removals invokes registered callbacks in a reasonable amount of time', (done: MochaDone) => {
+            let iteration = 1000,
+                elapsed = 0,
+                time = 0,
+                callback = () => {
+                    elapsed += new Date().getTime() - time;
+
+                    if (0 === iteration--) {
+                        assert.isBelow(elapsed, 500);
+                        return done();
+                    }
+
+                    let $els = $fixture.find('a, em, strong, span, div'),
+                        go = 0 < $els.length && 0.5 > Math.random() ?
+                            () => $els.first().remove() :
+                            () => $fixture.append('<' + ['a', 'em', 'strong', 'span', 'div'][Math.round(Math.random() * 4)] + '/>');
+
+                    time = new Date().getTime();
+                    go();
+                };
+
+            $fixture.always('a, em, strong, span, div', callback, callback);
+
+            time = new Date().getTime();
+            callback();
+        });
     });
 })(jQuery, chai.assert);

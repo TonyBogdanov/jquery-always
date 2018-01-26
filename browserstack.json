@@ -41,25 +41,43 @@
         "browser_version": "11"
     }, {
         "os": "android",
+        "os_version": "8.0",
+        "browser": "android"
+    }, {
+        "os": "android",
+        "os_version": "7.1",
+        "browser": "android"
+    }, {
+        "os": "android",
+        "os_version": "7.0",
+        "browser": "android"
+    }, {
+        "os": "android",
+        "os_version": "6.0",
+        "browser": "android"
+    }, {
+        "os": "android",
+        "os_version": "5.1",
+        "browser": "android"
+    }, {
+        "os": "android",
+        "os_version": "5.0",
+        "browser": "android"
+    }, {
+        "os": "android",
         "os_version": "4.4",
         "browser": "android"
     }, {
-        "browser": "android"
-    }, {
         "os": "ios",
-        "os_version": "6",
+        "os_version": "11.2",
         "browser": "iphone"
     }, {
         "os": "ios",
-        "os_version": "7",
+        "os_version": "11.0",
         "browser": "iphone"
     }, {
         "os": "ios",
-        "os_version": "8.3",
-        "browser": "iphone"
-    }, {
-        "os": "ios",
-        "os_version": "9.1",
+        "os_version": "10.3",
         "browser": "iphone"
     }]
 }

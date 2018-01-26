@@ -1,6 +1,5 @@
-///<reference path="../always.d.ts" />
-
-// todo test insertions / removals are caught for wrapped elements (event cascade)
+import jQuery from "jquery";
+import chai from "chai";
 
 (($, assert) => {
     class Callback
@@ -55,30 +54,26 @@
             if (frames <= 0) {
                 callback();
             } else {
-                if ('function' === typeof window.requestAnimationFrame) {
-                    requestAnimationFrame(() => {
-                        Utils.wait(frames - 1, callback);
-                    });
-                } else {
-                    setTimeout(() => {
-                        Utils.wait(frames - 1, callback);
-                    }, 1000 / 60);
-                }
+                setTimeout(() => {
+                    Utils.wait(frames - 1, callback);
+                }, 1);
             }
         }
     }
 
-    let $fixture: JQuery,
-        $a: JQuery,
-        $b: JQuery,
-        $div: JQuery;
+    let $body: jQuery,
+        $fixture: jQuery,
+        $a: jQuery,
+        $b: jQuery,
+        $div: jQuery;
 
     beforeEach(() => {
         $fixture = $('<div/>');
         $a = $('<a/>');
         $b = $('<b/>');
         $div = $('<div/>');
-        $(document.body).append($fixture);
+        $body = $(document.body);
+        $body.append($fixture);
     });
 
     afterEach(() => {
@@ -88,15 +83,15 @@
     describe('jQuery.Always', () => {
         it('Dependencies have resolved', () => {
             // in safari 8 & some ios MutationObserver is an object, not a function
-            let mo = typeof MutationObserver,
-                wmo = typeof WebKitMutationObserver;
+            let mo = typeof (<any> window).MutationObserver,
+                wmo = typeof (<any> window).WebKitMutationObserver;
             assert.isTrue('undefined' !== mo || 'undefined' !== wmo, 'Browser must support mutation observer feature,' +
                 ' typeof MutationObserver is ' + mo + ', typeof WebKitMutationObserver is ' + wmo);
         });
 
         it('Plugin has registered', () => {
-            assert.isFunction($.fn.always, 'always() must be registered with jQuery');
-            assert.isFunction($.fn.never, 'never() must be registered with jQuery');
+            assert.isFunction((<any> $.fn).always, 'always() must be registered with jQuery');
+            assert.isFunction((<any> $.fn).never, 'never() must be registered with jQuery');
         });
 
         it('"Inserted" callbacks are executed for matching selectors (before registration)', (done: MochaDone) => {
@@ -147,39 +142,74 @@
             });
         });
 
-        it('Callbacks are also executed for selectors matching children (deep) of mutated elements',
-            (done: MochaDone) => {
-                let insertedCallbacks = Utils.createCallbacks(),
-                    removedCallbacks = Utils.createCallbacks(),
-                    $aWrapper = $('<span/>'),
-                    $bWrapper = $('<span/>'),
-                    $divWrapper = $('<span/>');
+        it('Callbacks are also executed for selectors matching children (deep) of mutated' +
+            ' elements', (done: MochaDone) => {
+            let insertedCallbacks = Utils.createCallbacks(),
+                removedCallbacks = Utils.createCallbacks(),
+                $aWrapper = $('<span/>'),
+                $bWrapper = $('<span/>'),
+                $divWrapper = $('<span/>');
 
-                $aWrapper.append($('<span/>').append($a.clone()).append($('<span/>').append($a.clone())));
-                $bWrapper.append($('<span/>').append($b.clone()).append($('<span/>').append($b.clone())));
-                $divWrapper.append($('<span/>').append($div.clone()).append($('<span/>').append($div.clone())));
+            $aWrapper.append($('<span/>').append($a.clone()).append($('<span/>').append($a.clone())));
+            $bWrapper.append($('<span/>').append($b.clone()).append($('<span/>').append($b.clone())));
+            $divWrapper.append($('<span/>').append($div.clone()).append($('<span/>').append($div.clone())));
 
-                $fixture
-                    .always('a, b', Utils.invokeCallbacks(insertedCallbacks), Utils.invokeCallbacks(removedCallbacks))
-                    .append($aWrapper)
-                    .append($bWrapper)
-                    .append($divWrapper);
+            $fixture
+                .always('a, b', Utils.invokeCallbacks(insertedCallbacks), Utils.invokeCallbacks(removedCallbacks))
+                .append($aWrapper)
+                .append($bWrapper)
+                .append($divWrapper);
+
+            Utils.wait(1, () => {
+                Utils.assertInvoked(insertedCallbacks, 2, 2, 0);
+                Utils.assertInvoked(removedCallbacks, 0, 0, 0);
+
+                $aWrapper.children().children().last().remove();
+                $bWrapper.remove();
+                $divWrapper.remove();
 
                 Utils.wait(1, () => {
                     Utils.assertInvoked(insertedCallbacks, 2, 2, 0);
-                    Utils.assertInvoked(removedCallbacks, 0, 0, 0);
+                    Utils.assertInvoked(removedCallbacks, 1, 2, 0);
+                    done();
+                });
+            });
+        });
 
-                    $aWrapper.children().children().last().remove();
-                    $bWrapper.remove();
-                    $divWrapper.remove();
+        it('Callbacks are not called multiple times for special cases (like wrap() / unwrap()) where child nodes' +
+            ' are also reported as mutated', (done: MochaDone) => {
+            let insertedCallbacks = Utils.createCallbacks(),
+                removedCallbacks = Utils.createCallbacks(),
+                $aWrapper = $('<span/>');
+
+            // 1 addition from append()
+            $fixture
+                .always('a', Utils.invokeCallbacks(insertedCallbacks), Utils.invokeCallbacks(removedCallbacks))
+                .append($a);
+
+            Utils.wait(1, () => {
+                Utils.assertInvoked(insertedCallbacks, 1, 0, 0);
+                Utils.assertInvoked(removedCallbacks, 0, 0, 0);
+
+                // 1 removal + 1 addition from wrap()
+                $a.wrap($aWrapper);
+
+                Utils.wait(1, () => {
+                    Utils.assertInvoked(insertedCallbacks, 2, 0, 0);
+                    Utils.assertInvoked(removedCallbacks, 1, 0, 0);
+
+                    // 1 removal + 1 addition from unwrap()
+                    $a.unwrap();
 
                     Utils.wait(1, () => {
-                        Utils.assertInvoked(insertedCallbacks, 2, 2, 0);
-                        Utils.assertInvoked(removedCallbacks, 1, 2, 0);
+                        Utils.assertInvoked(insertedCallbacks, 3, 0, 0);
+                        Utils.assertInvoked(removedCallbacks, 2, 0, 0);
+
                         done();
                     });
                 });
             });
+        });
 
         it('Calling never() stops execution of all callbacks', (done: MochaDone) => {
             let insertedCallbacks = Utils.createCallbacks(),

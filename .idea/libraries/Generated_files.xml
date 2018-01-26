@@ -1,0 +1,27 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/always.js" />
+        <item url="file://$PROJECT_DIR$/always.min.js" />
+        <item url="file://$PROJECT_DIR$/tests/tests.js" />
+        <item url="file://$PROJECT_DIR$/tests/tests.min.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/tests/qunit/tests.min.js" />
+      <root url="file://$PROJECT_DIR$/tests/qunit/tests.js" />
+      <root url="file://$PROJECT_DIR$/tests/utils.min.js" />
+      <root url="file://$PROJECT_DIR$/tests/utils.js" />
+      <root url="file://$PROJECT_DIR$/_always.js" />
+      <root url="file://$PROJECT_DIR$/_always.min.js" />
+      <root url="file://$PROJECT_DIR$/lib/AlwaysData.js" />
+      <root url="file://$PROJECT_DIR$/lib/AlwaysData.min.js" />
+      <root url="file://$PROJECT_DIR$/always.js" />
+      <root url="file://$PROJECT_DIR$/always.min.js" />
+      <root url="file://$PROJECT_DIR$/tests/tests.js" />
+      <root url="file://$PROJECT_DIR$/tests/tests.min.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

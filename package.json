@@ -10,11 +10,15 @@
     "license": "MIT",
     "repository": "https://github.com/TonyBogdanov/jquery-always",
     "devDependencies": {
-        "@types/jquery": "^3.2.16",
-        "@types/chai": "^4.0.5",
-        "@types/mocha": "^2.2.44",
-        "jquery": "^1.12.4",
-        "chai": "^4.1.2",
-        "mocha": "^4.0.1"
+        "@types/chai": "4.1.2",
+        "@types/jquery": "3.3.0",
+        "@types/mocha": "2.2.44",
+        "chai": "4.1.2",
+        "jquery": "3.3.0",
+        "mocha": "4.1.0",
+        "rollup": "0.55.1",
+        "rollup-plugin-typescript": "0.8.1",
+        "typescript": "2.6.2",
+        "uglify-js": "2.4.11"
     }
 }

@@ -1,4 +1,9 @@
-"use strict";
+(function (jQuery,chai) {
+'use strict';
+
+jQuery = jQuery && jQuery.hasOwnProperty('default') ? jQuery['default'] : jQuery;
+chai = chai && chai.hasOwnProperty('default') ? chai['default'] : chai;
+
 (function ($, assert) {
     var Callback = (function () {
         function Callback(callback) {
@@ -39,34 +44,28 @@
                 callback();
             }
             else {
-                if ('function' === typeof window.requestAnimationFrame) {
-                    requestAnimationFrame(function () {
-                        Utils.wait(frames - 1, callback);
-                    });
-                }
-                else {
-                    setTimeout(function () {
-                        Utils.wait(frames - 1, callback);
-                    }, 1000 / 60);
-                }
+                setTimeout(function () {
+                    Utils.wait(frames - 1, callback);
+                }, 1);
             }
         };
         return Utils;
     }());
-    var $fixture, $a, $b, $div;
+    var $body, $fixture, $a, $b, $div;
     beforeEach(function () {
         $fixture = $('<div/>');
         $a = $('<a/>');
         $b = $('<b/>');
         $div = $('<div/>');
-        $(document.body).append($fixture);
+        $body = $(document.body);
+        $body.append($fixture);
     });
     afterEach(function () {
         $fixture.remove();
     });
     describe('jQuery.Always', function () {
         it('Dependencies have resolved', function () {
-            var mo = typeof MutationObserver, wmo = typeof WebKitMutationObserver;
+            var mo = typeof window.MutationObserver, wmo = typeof window.WebKitMutationObserver;
             assert.isTrue('undefined' !== mo || 'undefined' !== wmo, 'Browser must support mutation observer feature,' +
                 ' typeof MutationObserver is ' + mo + ', typeof WebKitMutationObserver is ' + wmo);
         });
@@ -112,7 +111,8 @@
                 done();
             });
         });
-        it('Callbacks are also executed for selectors matching children (deep) of mutated elements', function (done) {
+        it('Callbacks are also executed for selectors matching children (deep) of mutated' +
+            ' elements', function (done) {
             var insertedCallbacks = Utils.createCallbacks(), removedCallbacks = Utils.createCallbacks(), $aWrapper = $('<span/>'), $bWrapper = $('<span/>'), $divWrapper = $('<span/>');
             $aWrapper.append($('<span/>').append($a.clone()).append($('<span/>').append($a.clone())));
             $bWrapper.append($('<span/>').append($b.clone()).append($('<span/>').append($b.clone())));
@@ -132,6 +132,28 @@
                     Utils.assertInvoked(insertedCallbacks, 2, 2, 0);
                     Utils.assertInvoked(removedCallbacks, 1, 2, 0);
                     done();
+                });
+            });
+        });
+        it('Callbacks are not called multiple times for special cases (like wrap() / unwrap()) where child nodes' +
+            ' are also reported as mutated', function (done) {
+            var insertedCallbacks = Utils.createCallbacks(), removedCallbacks = Utils.createCallbacks(), $aWrapper = $('<span/>');
+            $fixture
+                .always('a', Utils.invokeCallbacks(insertedCallbacks), Utils.invokeCallbacks(removedCallbacks))
+                .append($a);
+            Utils.wait(1, function () {
+                Utils.assertInvoked(insertedCallbacks, 1, 0, 0);
+                Utils.assertInvoked(removedCallbacks, 0, 0, 0);
+                $a.wrap($aWrapper);
+                Utils.wait(1, function () {
+                    Utils.assertInvoked(insertedCallbacks, 2, 0, 0);
+                    Utils.assertInvoked(removedCallbacks, 1, 0, 0);
+                    $a.unwrap();
+                    Utils.wait(1, function () {
+                        Utils.assertInvoked(insertedCallbacks, 3, 0, 0);
+                        Utils.assertInvoked(removedCallbacks, 2, 0, 0);
+                        done();
+                    });
                 });
             });
         });
@@ -251,3 +273,5 @@
         });
     });
 })(jQuery, chai.assert);
+
+}(jQuery,chai));

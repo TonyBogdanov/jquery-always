@@ -7,7 +7,7 @@
 [![License](https://poser.pugx.org/tonybogdanov/jquery-always/license)](https://packagist.org/packages/tonybogdanov/jquery-always)
 [![Buy Me a Coffee](http://static.tonybogdanov.com/github/coffee.svg)](http://ko-fi.co/1236KUKJNC96B)
 
-This is a [jQuery](https://jquery.org) plugin that enables you to execute callbacks anytime an element matching a specified selector is added to the DOM.
+This is a [jQuery](https://jquery.org) plugin that enables you to execute callbacks anytime an element matching a specified selector is added to the DOM (can also be used without jQuery).
 
 The same callbacks will also be executed once for all matching elements already found in the DOM, ensuring your callback will always run for every element matched by the selector, now and in the future, *always*.
 
@@ -20,7 +20,7 @@ $(function () {
     $('.slider').makeSlider();
 });
 ```
-    
+
 A huge problem with this approach arises when `.slider` elements are added *after* the `DOMContentLoaded` event has already fired - a very common situation is loading content with AJAX. When new elements are added they are ***not*** going to have the `.makeSlider();` logic executed on them since the event already fired.
 
 Event-based logic has a sort of solution, for example, if you want to listen for clicks on `button` elements, using `$('button').on('click', ...);` won't work for dynamically added elements for the same reasons. Due to the bubbling nature of events, though, you could simply listen for clicks on a parent element you *know* exists during `DOMContentLoaded`, and simply filter the target like so:
@@ -59,38 +59,44 @@ The more-specific the scope, with less elements and operations performed on it a
 
 Each registered callback will receive the matched DOM `Element` as `this`. If more than one element is matched by the selector, the respective callbacks will be called for each of them, thus `this` will only point to exactly **one** DOM element.
 
-You can also call `.never()` to your scope element to detach previously attached callbacks.
+You can also use `never()` to detach previously attached callbacks.
 
 ### Synopsis
 
-#### `always()`
+#### `Always.always()`
 
-```text
-always (
+```typescript
+function always (
+    // scope element
+    element: HTMLElement,
+    
     // target elements selector
     selector: string,
     
     // optional callback to be executed upon insertion
-    onInserted?: (this: Element) => void,
+    onInserted?: (this: HTMLElement) => void,
     
     // optional callback to be executed upon removal
-    onRemoved?: (this: Element) => void
-): JQuery // reference to the original scope element for jQuery-like chaining
+    onRemoved?: (this: HTMLElement) => void
+): void
 ```
 
-#### `never()`
+#### `Always.never()`
 
-```text
-never (
+```typescript
+function never (
+    // scope element
+    element: HTMLElement,
+    
     // target elements selector
     selector?: string,
     
     // optional reference to a previously registered "inserted" callback to be detached
-    onInserted?: (this: Element) => void,
+    onInserted?: (this: HTMLElement) => void,
     
     // optional reference to a previously registered "removed" callback to be detached
-    onRemoved?: (this: Element) => void
-): JQuery // reference to the original scope element for jQuery-like chaining
+    onRemoved?: (this: HTMLElement) => void
+): void
 ```
 
 ### Attaching an "inserted" callback
@@ -98,8 +104,8 @@ never (
 Use the following example to add a callback to be executed when elements matching `.element` are inserted inside `#scope`.
 
 ```js
-$('#scope').always('.element', function () {
-    $(this).doStuff();
+Always.always(scope, '.element', function () {
+    doStuff(this);
 });
 ```
 
@@ -108,37 +114,55 @@ $('#scope').always('.element', function () {
 Use the following example to add a callback to be executed when elements matching `.element` are removed from `#scope`.
 
 ```js
-$('#scope').always('.element', undefined, function () {
-    $(this).undoStuff();
+Always.always(scope, '.element', null, function () {
+    undoStuff(this);
 });
 ```
 
 ### ...or both simultaneously
 
 ```js
-$('#scope').always('.element', function () {
-    $(this).doStuff();
+Always.always(scope, '.element', function () {
+    doStuff(this);
 }, function () {
-    $(this).undoStuff();
+    undoStuff(this);
 });
 ```
 
 ### Removing *all* attached callbacks
 
 ```js
-$('#scope').never();
+Always.never(scope);
 ```
 
 ### Removing attached callbacks matching a selector
 
 ```js
-$('#scope').never('.element');
+Always.never(scope, '.element');
 ```
 
 ### Removing a specific attached callback
 
 ```js
-$('#scope').never('.element', onInsertedCallbackReference, onRemovedCallbackReference);
+Always.never(scope, '.element', onInsertedCallbackReference, onRemovedCallbackReference);
+```
+
+## jQuery bindings
+
+The plugin can also be used as a [jQuery](https://jquery.org) plugin with a nearly identical syntax:
+
+```js
+var added = function () {
+    doStuffWhenAdded(this);
+};
+
+var removed = function () {
+    doStuffWhenRemoved(this);
+};
+
+$('#scope')
+    .always('.element', added, removed)
+    .never('.element', added, removed);
 ```
 
 ## Notes

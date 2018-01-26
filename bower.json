@@ -19,6 +19,7 @@
   "homepage": "https://github.com/TonyBogdanov/jquery-always",
   "ignore": [
     "**/.*",
+    "bin",
     "node_modules",
     "bower_components",
     "vendor",

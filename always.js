@@ -181,8 +181,7 @@ var Always = /** @class */ (function () {
             return this;
         }
         if (callback) {
-            var index = void 0;
-            while (-1 < (index = callbacks[selector].indexOf(callback))) {
+            for (var index = -1; -1 < (index = callbacks[selector].indexOf(callback));) {
                 callbacks[selector].splice(index, 1);
             }
         }
@@ -326,8 +325,6 @@ var Bindings = /** @class */ (function () {
 }());
 
 function polyfillMutationObserver() {
-    /** global: MutationObserver */
-    /** global: WebKitMutationObserver */
     if (window.MutationObserver) {
         return;
     }
@@ -335,7 +332,6 @@ function polyfillMutationObserver() {
 }
 
 function polyfillElementMatches() {
-    /** global: Element */
     var _this = this;
     var prototype = Element.prototype;
     if (prototype.matches) {
@@ -348,10 +344,13 @@ function polyfillElementMatches() {
             prototype.oMatchesSelector ||
             prototype.webkitMatchesSelector ||
             (function (s) {
-                var matches = (_this.document || _this.ownerDocument).querySelectorAll(s), i = matches.length;
-                // continue until one of the items matches this
-                while (--i >= 0 && matches.item(i) !== _this) { }
-                return i > -1;
+                var matches = (_this.document || _this.ownerDocument).querySelectorAll(s);
+                for (var i = 0; i < matches.length; i++) {
+                    if (matches.item(i) === _this) {
+                        return true;
+                    }
+                }
+                return false;
             });
 }
 
@@ -363,6 +362,10 @@ var Polyfills = /** @class */ (function () {
     return Polyfills;
 }());
 
+/** global: Element */
+/** global: HTMLElement */
+/** global: MutationObserver */
+/** global: WebKitMutationObserver */
 // polyfills
 Polyfills.elementMatches();
 Polyfills.mutationObserver();

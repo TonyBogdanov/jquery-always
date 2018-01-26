@@ -1,7 +1,5 @@
 export function polyfillElementMatches(): void
 {
-    /** global: Element */
-
     let prototype = <any> Element.prototype;
 
     if (prototype.matches) {
@@ -15,12 +13,14 @@ export function polyfillElementMatches(): void
         prototype.oMatchesSelector ||
         prototype.webkitMatchesSelector ||
         ((s: string): boolean => {
-            let matches = (this.document || this.ownerDocument).querySelectorAll(s),
-                i = matches.length;
+            let matches = (this.document || this.ownerDocument).querySelectorAll(s);
 
-            // continue until one of the items matches this
-            while (--i >= 0 && matches.item(i) !== this) {}
+            for (let i = 0; i < matches.length; i++) {
+                if (matches.item(i) === this) {
+                    return true;
+                }
+            }
 
-            return i > -1;
+            return false;
         });
 }

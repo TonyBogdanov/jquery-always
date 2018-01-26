@@ -2,9 +2,6 @@ import {AlwaysData} from "./AlwaysData";
 
 export class Always
 {
-    /** global: HTMLElement */
-    /** global: MutationObserver */
-
     protected element: HTMLElement;
     protected observer: MutationObserver;
     protected insertedCallbacks: { [key: string]: ((this: HTMLElement) => void)[] } = {};
@@ -188,8 +185,7 @@ export class Always
         }
 
         if (callback) {
-            let index;
-            while (-1 < (index = callbacks[selector].indexOf(callback))) {
+            for (let index = -1; -1 < (index = callbacks[selector].indexOf(callback));) {
                 callbacks[selector].splice(index, 1);
             }
         } else {

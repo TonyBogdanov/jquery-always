@@ -2,6 +2,9 @@ import {AlwaysData} from "./AlwaysData";
 
 export class Always
 {
+    /** global: HTMLElement */
+    /** global: MutationObserver */
+
     protected element: HTMLElement;
     protected observer: MutationObserver;
     protected insertedCallbacks: { [key: string]: ((this: HTMLElement) => void)[] } = {};

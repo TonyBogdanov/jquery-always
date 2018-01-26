@@ -13,7 +13,7 @@ export default {
             declaration: true,
             disableSizeLimit: true,
             pretty: true,
-            removeComments: true,
+            removeComments: false,
             stripInternal: true,
             target: "es5"
         })

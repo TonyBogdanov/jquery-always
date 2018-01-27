@@ -4,7 +4,6 @@
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/always.js" />
         <item url="file://$PROJECT_DIR$/always.min.js" />
-        <item url="file://$PROJECT_DIR$/always.min.js" />
         <item url="file://$PROJECT_DIR$/tests/tests.js" />
         <item url="file://$PROJECT_DIR$/tests/tests.min.js" />
       </sourceFilesUrls>

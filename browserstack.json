@@ -5,25 +5,15 @@
     "framework": "mocha",
     "timeout": 300,
     "browsers": [{
-        "browser": "ie"
-    }, {
-        "browser": "edge",
-        "browser_version": "14"
-    }, {
-        "browser": "edge",
-        "browser_version": "15"
-    }, {
-        "browser": "edge",
-        "browser_version": "16"
-    }, {
         "browser": "chrome"
     }, {
         "browser": "firefox"
     }, {
-        "browser": "safari"
-    }, {
         "browser": "safari",
         "browser_version": "6"
+    }, {
+        "browser": "safari",
+        "browser_version": "6.2"
     }, {
         "browser": "safari",
         "browser_version": "7.1"
@@ -40,24 +30,17 @@
         "browser": "safari",
         "browser_version": "11"
     }, {
-        "os": "android",
-        "os_version": "8.0",
-        "browser": "android"
+        "browser": "edge",
+        "browser_version": "14"
+    }, {
+        "browser": "edge",
+        "browser_version": "15"
+    }, {
+        "browser": "edge",
+        "browser_version": "16"
     }, {
         "os": "android",
-        "os_version": "7.1",
-        "browser": "android"
-    }, {
-        "os": "android",
-        "os_version": "7.0",
-        "browser": "android"
-    }, {
-        "os": "android",
-        "os_version": "6.0",
-        "browser": "android"
-    }, {
-        "os": "android",
-        "os_version": "5.1",
+        "os_version": "4.4",
         "browser": "android"
     }, {
         "os": "android",
@@ -65,11 +48,43 @@
         "browser": "android"
     }, {
         "os": "android",
-        "os_version": "4.4",
+        "os_version": "5.1",
+        "browser": "android"
+    }, {
+        "os": "android",
+        "os_version": "6.0",
+        "browser": "android"
+    }, {
+        "os": "android",
+        "os_version": "7.0",
+        "browser": "android"
+    }, {
+        "os": "android",
+        "os_version": "7.1",
+        "browser": "android"
+    }, {
+        "os": "android",
+        "os_version": "8.0",
         "browser": "android"
     }, {
         "os": "ios",
-        "os_version": "11.2",
+        "os_version": "6.0",
+        "browser": "iphone"
+    }, {
+        "os": "ios",
+        "os_version": "7.0",
+        "browser": "iphone"
+    }, {
+        "os": "ios",
+        "os_version": "8.3",
+        "browser": "iphone"
+    }, {
+        "os": "ios",
+        "os_version": "9.1",
+        "browser": "iphone"
+    }, {
+        "os": "ios",
+        "os_version": "10.3",
         "browser": "iphone"
     }, {
         "os": "ios",
@@ -77,7 +92,7 @@
         "browser": "iphone"
     }, {
         "os": "ios",
-        "os_version": "10.3",
+        "os_version": "11.2",
         "browser": "iphone"
     }]
 }

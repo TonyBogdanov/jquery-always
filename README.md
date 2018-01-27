@@ -192,6 +192,17 @@ Normalization will ensure selectors like `a, b` and `a,b` and even `b,a` are tre
 
 The `this` variable available inside the `onRemoved` callback will point to the element that was just removed from the DOM. Thanks to the magic of mutation observers, the original DOM tree will continue to exist at this point, meaning you can still execute jQuery operations on `this`, like `find()`-ing child elements etc. Even so, you should keep in mind that at this point the element has been detached from the DOM, so any operations you perform on it will ***not*** be reflected in the DOM.
 
+## Browser Compatibility
+
+![Desktop](https://static.tonybogdanov.com/browser-compatibility/desktop/32.png) | ![Desktop](https://static.tonybogdanov.com/browser-compatibility/desktop/32.png) | ![Desktop](https://static.tonybogdanov.com/browser-compatibility/desktop/32.png) | ![Desktop](https://static.tonybogdanov.com/browser-compatibility/desktop/32.png) | ![Desktop](https://static.tonybogdanov.com/browser-compatibility/desktop/32.png) | ![Mobile](https://static.tonybogdanov.com/browser-compatibility/mobile/32.png) | ![Mobile](https://static.tonybogdanov.com/browser-compatibility/mobile/32.png) | ![Mobile](https://static.tonybogdanov.com/browser-compatibility/mobile/32.png)
+:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:
+![Chrome](https://static.tonybogdanov.com/browser-compatibility/chrome/32.png) | ![Firefox](https://static.tonybogdanov.com/browser-compatibility/firefox/32.png) | ![Safari](https://static.tonybogdanov.com/browser-compatibility/safari/32.png) | ![Edge](https://static.tonybogdanov.com/browser-compatibility/edge/32.png) | ![Opera](https://static.tonybogdanov.com/browser-compatibility/opera/32.png) | ![Internet Explorer](https://static.tonybogdanov.com/browser-compatibility/ie/32.png) | ![Android](https://static.tonybogdanov.com/browser-compatibility/android/32.png) | ![Safari](https://static.tonybogdanov.com/browser-compatibility/safari/32.png)
+Yes | Yes | 6 | 14 | Yes (*1) | 11 (*2) | 4.4 | 6
+
+*1 - Opera is not covered in tests since the web driver only supports up to version 12.16 which is outdated. Manually running the tests on the latest version passes.
+
+*2 - Children of removed sub-trees are not reported as removals. Consider IE as not supported if you also need to detect removals.
+
 ---
 
 Sponsored by

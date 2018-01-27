@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ab8f0c3-0bd8-4be1-8f37-9bc014e7c2c5" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/always.js" afterPath="$PROJECT_DIR$/always.js" />
-      <change beforePath="$PROJECT_DIR$/always.min.js" afterPath="$PROJECT_DIR$/always.min.js" />
-      <change beforePath="$PROJECT_DIR$/always.min.js.map" afterPath="$PROJECT_DIR$/always.min.js.map" />
-      <change beforePath="$PROJECT_DIR$/lib/Always.ts" afterPath="$PROJECT_DIR$/lib/Always.ts" />
-      <change beforePath="$PROJECT_DIR$/tests/tests.js" afterPath="$PROJECT_DIR$/tests/tests.js" />
-      <change beforePath="$PROJECT_DIR$/tests/tests.min.js" afterPath="$PROJECT_DIR$/tests/tests.min.js" />
-      <change beforePath="$PROJECT_DIR$/tests/tests.min.js.map" afterPath="$PROJECT_DIR$/tests/tests.min.js.map" />
-      <change beforePath="$PROJECT_DIR$/tests/tests.ts" afterPath="$PROJECT_DIR$/tests/tests.ts" />
+      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change beforePath="$PROJECT_DIR$/browserstack.json" afterPath="$PROJECT_DIR$/browserstack.json" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -78,6 +73,7 @@
       <replace>Test.log</replace>
       <replace>Utils.assertInvoked(</replace>
       <replace>BROWSERSTACK_KEY</replace>
+      <replace>![Internet Explorer](https://static.tonybogdanov.com/browser-compatibility/ie/32.png)</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\WEB\www\github\jquery-always\tests</dir>
@@ -103,10 +99,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/unit/browserstack.err" />
-        <option value="$PROJECT_DIR$/unit/lib/BrowserStackTest.php" />
-        <option value="$PROJECT_DIR$/unit/config/local.conf.json" />
-        <option value="$PROJECT_DIR$/unit/lib/globals.php" />
         <option value="$PROJECT_DIR$/unit/tests/index.html" />
         <option value="$PROJECT_DIR$/unit/tests/local_test.php" />
         <option value="$PROJECT_DIR$/unit/vendor/browserstack/browserstack-local/lib/Local.php" />
@@ -119,7 +111,6 @@
         <option value="$PROJECT_DIR$/browserstack2.json" />
         <option value="$PROJECT_DIR$/browserstack3.json" />
         <option value="$PROJECT_DIR$/browserstack-single.json" />
-        <option value="$PROJECT_DIR$/_browserstack.json" />
         <option value="$PROJECT_DIR$/tests/NOTES" />
         <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/composer.json" />
@@ -135,7 +126,6 @@
         <option value="$PROJECT_DIR$/bin/rollup.sh" />
         <option value="$PROJECT_DIR$/tests/package.json" />
         <option value="$PROJECT_DIR$/tests/rollup.config.js" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/-browserstack.json" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/bin/rollup-main.sh" />
@@ -153,7 +143,13 @@
         <option value="$PROJECT_DIR$/vendor/tonybogdanov/browserstack-tester/classes/Bootstrap.php" />
         <option value="$PROJECT_DIR$/vendor/tonybogdanov/browserstack-tester/classes/Cli/Worker.php" />
         <option value="$PROJECT_DIR$/vendor/tonybogdanov/browserstack-tester/classes/WebServer.php" />
+        <option value="$USER_HOME$/Desktop/a.svg" />
+        <option value="$USER_HOME$/Desktop/b/resize.php" />
+        <option value="$PROJECT_DIR$/_browserstack.json" />
+        <option value="$PROJECT_DIR$/TODO" />
         <option value="$PROJECT_DIR$/browserstack.json" />
+        <option value="$PROJECT_DIR$/C.md" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -274,8 +270,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\WEB\www\github\jquery-always\vendor\tonybogdanov\browserstack-tester" />
       <recent name="C:\WEB\www\github\jquery-always" />
+      <recent name="C:\WEB\www\github\jquery-always\vendor\tonybogdanov\browserstack-tester" />
       <recent name="C:\WEB\www\github\jquery-always\tests" />
       <recent name="C:\WEB\www\github\jquery-always\bin" />
       <recent name="C:\WEB\www\github\jquery-always\lib\Polyfill" />
@@ -332,12 +328,12 @@
       <workItem from="1516953960915" duration="14694000" />
       <workItem from="1516971714913" duration="82000" />
       <workItem from="1516972911952" duration="23099000" />
-      <workItem from="1517041013151" duration="2091000" />
+      <workItem from="1517041013151" duration="8378000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="211311000" />
+    <option name="totallyTimeSpent" value="217598000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -349,7 +345,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46054053" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17963752" sideWeight="0.50422835" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17963752" sideWeight="0.50422835" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18336888" sideWeight="0.49577168" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18656716" sideWeight="0.49577168" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24626866" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -383,10 +379,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/browserstack2.json" />
-    <entry file="file://$PROJECT_DIR$/browserstack3.json" />
-    <entry file="file://$PROJECT_DIR$/_browserstack.json" />
-    <entry file="file://$PROJECT_DIR$/browserstack-single.json" />
     <entry file="file://$PROJECT_DIR$/vendor/guzzlehttp/guzzle/src/Client.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -469,16 +461,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="301">
           <caret line="3141" column="4" lean-forward="false" selection-start-line="3141" selection-start-column="4" selection-end-line="3141" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="716">
-            <caret line="197" column="0" lean-forward="true" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>
@@ -637,29 +619,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_browserstack.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="81" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/browserstack.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="742">
-          <caret line="81" column="5" lean-forward="false" selection-start-line="81" selection-start-column="5" selection-end-line="81" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="575">
@@ -673,6 +632,83 @@
         <state relative-caret-position="304">
           <caret line="149" column="20" lean-forward="true" selection-start-line="149" selection-start-column="20" selection-end-line="149" selection-end-column="20" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/a.svg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/b/resize.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="667">
+          <caret line="29" column="27" lean-forward="false" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TODO">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="15" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/browserstack.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1886">
+          <caret line="82" column="26" lean-forward="false" selection-start-line="82" selection-start-column="26" selection-end-line="82" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_browserstack.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="46" column="26" lean-forward="true" selection-start-line="46" selection-start-column="26" selection-end-line="46" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/C.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="391">
+            <caret line="3" column="49" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="130" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="601">
+            <caret line="203" column="130" lean-forward="false" selection-start-line="203" selection-start-column="130" selection-end-line="203" selection-end-column="130" />
+            <folding>
+              <marker date="1517052624877" expanded="true" signature="1754:1788" ph="{...}" />
+              <marker date="1517052624877" expanded="true" signature="2536:2619" ph="{...}" />
+              <marker date="1517052624877" expanded="true" signature="2593:2615" ph="{...}" />
+              <marker date="1517052624877" expanded="true" signature="5765:5787" ph="{...}" />
+              <marker date="1517052624877" expanded="true" signature="6009:6033" ph="{...}" />
+              <marker date="1517052624877" expanded="true" signature="6123:6145" ph="{...}" />
+              <marker date="1517052624877" expanded="true" signature="6159:6183" ph="{...}" />
+              <marker date="1517052624877" expanded="true" signature="6655:6686" ph="{...}" />
+              <marker date="1517052624877" expanded="true" signature="6715:6748" ph="{...}" />
+            </folding>
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

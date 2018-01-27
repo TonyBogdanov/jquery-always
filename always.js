@@ -208,12 +208,11 @@ var Always = /** @class */ (function () {
         if (operation === data.lastOperation) {
             return this;
         }
+        data.lastOperation = operation;
         // traverse requested callbacks & invoke those for which the element matches the corresponding selector
-        // also update the AlwaysData.lastOperation to prevent future duplicate invocations
         Object.keys(callbacks).forEach(function (selector) {
             if (element.matches(selector)) {
                 callbacks[selector].forEach(function (callback) {
-                    data.lastOperation = operation;
                     callback.call(element);
                 });
             }

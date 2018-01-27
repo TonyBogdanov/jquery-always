@@ -145,32 +145,22 @@ import chai from "chai";
         it('Callbacks are also executed for selectors matching children (deep) of mutated' +
             ' elements', (done: MochaDone) => {
             let insertedCallbacks = Utils.createCallbacks(),
-                removedCallbacks = Utils.createCallbacks(),
-                $aWrapper = $('<span/>'),
-                $bWrapper = $('<span/>'),
-                $divWrapper = $('<span/>');
-
-            $aWrapper.append($('<span/>').append($a.clone()).append($('<span/>').append($a.clone())));
-            $bWrapper.append($('<span/>').append($b.clone()).append($('<span/>').append($b.clone())));
-            $divWrapper.append($('<span/>').append($div.clone()).append($('<span/>').append($div.clone())));
+                removedCallbacks = Utils.createCallbacks();
 
             $fixture
                 .always('a, b', Utils.invokeCallbacks(insertedCallbacks), Utils.invokeCallbacks(removedCallbacks))
-                .append($aWrapper)
-                .append($bWrapper)
-                .append($divWrapper);
+                .append('<a></a><a><b></b></a><a></a><b></b><div><a></a><a><b></b></a><b></b></div>');
 
             Utils.wait(1, () => {
-                Utils.assertInvoked(insertedCallbacks, 2, 2, 0);
+                Utils.assertInvoked(insertedCallbacks, 5, 4, 0);
                 Utils.assertInvoked(removedCallbacks, 0, 0, 0);
 
-                $aWrapper.children().children().last().remove();
-                $bWrapper.remove();
-                $divWrapper.remove();
+                $fixture.html('');
 
                 Utils.wait(1, () => {
-                    Utils.assertInvoked(insertedCallbacks, 2, 2, 0);
-                    Utils.assertInvoked(removedCallbacks, 1, 2, 0);
+                    Utils.assertInvoked(insertedCallbacks, 5, 4, 0);
+                    Utils.assertInvoked(removedCallbacks, 5, 4, 0);
+
                     done();
                 });
             });
@@ -281,6 +271,7 @@ import chai from "chai";
                 Utils.wait(1, () => {
                     Utils.assertInvoked(callbacksAB, 1, 1, 0, 'Post-Never (A,B)');
                     Utils.assertInvoked(callbacksDIV, 0, 0, 2, 'Post-Never (DIV)');
+
                     done();
                 });
             });
@@ -367,7 +358,7 @@ import chai from "chai";
                     elapsed += new Date().getTime() - time;
 
                     if (0 === iteration--) {
-                        assert.isBelow(elapsed, 500);
+                        assert.isBelow(elapsed, 1000);
                         return done();
                     }
 

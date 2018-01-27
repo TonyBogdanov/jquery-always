@@ -113,24 +113,17 @@ chai = chai && chai.hasOwnProperty('default') ? chai['default'] : chai;
         });
         it('Callbacks are also executed for selectors matching children (deep) of mutated' +
             ' elements', function (done) {
-            var insertedCallbacks = Utils.createCallbacks(), removedCallbacks = Utils.createCallbacks(), $aWrapper = $('<span/>'), $bWrapper = $('<span/>'), $divWrapper = $('<span/>');
-            $aWrapper.append($('<span/>').append($a.clone()).append($('<span/>').append($a.clone())));
-            $bWrapper.append($('<span/>').append($b.clone()).append($('<span/>').append($b.clone())));
-            $divWrapper.append($('<span/>').append($div.clone()).append($('<span/>').append($div.clone())));
+            var insertedCallbacks = Utils.createCallbacks(), removedCallbacks = Utils.createCallbacks();
             $fixture
                 .always('a, b', Utils.invokeCallbacks(insertedCallbacks), Utils.invokeCallbacks(removedCallbacks))
-                .append($aWrapper)
-                .append($bWrapper)
-                .append($divWrapper);
+                .append('<a></a><a><b></b></a><a></a><b></b><div><a></a><a><b></b></a><b></b></div>');
             Utils.wait(1, function () {
-                Utils.assertInvoked(insertedCallbacks, 2, 2, 0);
+                Utils.assertInvoked(insertedCallbacks, 5, 4, 0);
                 Utils.assertInvoked(removedCallbacks, 0, 0, 0);
-                $aWrapper.children().children().last().remove();
-                $bWrapper.remove();
-                $divWrapper.remove();
+                $fixture.html('');
                 Utils.wait(1, function () {
-                    Utils.assertInvoked(insertedCallbacks, 2, 2, 0);
-                    Utils.assertInvoked(removedCallbacks, 1, 2, 0);
+                    Utils.assertInvoked(insertedCallbacks, 5, 4, 0);
+                    Utils.assertInvoked(removedCallbacks, 5, 4, 0);
                     done();
                 });
             });
@@ -275,7 +268,7 @@ chai = chai && chai.hasOwnProperty('default') ? chai['default'] : chai;
             var iteration = 1000, elapsed = 0, time = 0, callback = function () {
                 elapsed += new Date().getTime() - time;
                 if (0 === iteration--) {
-                    assert.isBelow(elapsed, 500);
+                    assert.isBelow(elapsed, 1000);
                     return done();
                 }
                 var $els = $fixture.find('a, em, strong, span, div'), go = 0 < $els.length && 0.5 > Math.random() ?

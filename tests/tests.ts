@@ -42,11 +42,19 @@ import chai from "chai";
             };
         }
 
-        static assertInvoked(callbacks: { [key: string]: Callback }, a: number, b: number, div: number, prefix?: string): void
-        {
-            assert.equal(callbacks.a.getInvoked(), a, (prefix ? prefix + ': ' : '') + 'Callback #a must be invoked ' + a + ' time(s) total');
-            assert.equal(callbacks.b.getInvoked(), b, (prefix ? prefix + ': ' : '') + 'Callback #b must be invoked ' + b + ' time(s) total');
-            assert.equal(callbacks.div.getInvoked(), div, (prefix ? prefix + ': ' : '') + 'Callback #div must be invoked ' + div + ' time(s) total');
+        static assertInvoked(
+            callbacks: { [key: string]: Callback },
+            a: number,
+            b: number,
+            div: number,
+            prefix?: string
+        ): void {
+            assert.equal(callbacks.a.getInvoked(), a, (prefix ? prefix + ': ' : '') + 'Callback #a must be invoked ' +
+                a + ' time(s) total');
+            assert.equal(callbacks.b.getInvoked(), b, (prefix ? prefix + ': ' : '') + 'Callback #b must be invoked ' +
+                b + ' time(s) total');
+            assert.equal(callbacks.div.getInvoked(), div, (prefix ? prefix + ': ' : '') + 'Callback #div must be' +
+                ' invoked ' + div + ' time(s) total');
         }
 
         static wait(frames: number, callback: () => any): void
@@ -166,6 +174,30 @@ import chai from "chai";
             });
         });
 
+        it('Callbacks are not called multiple times for special cases (like wrap()) where the element is already' +
+            ' in the Dom', (done: MochaDone) => {
+            let insertedCallbacks = Utils.createCallbacks(),
+                removedCallbacks = Utils.createCallbacks();
+
+            $fixture
+                .append($a)
+                .always('a', Utils.invokeCallbacks(insertedCallbacks), Utils.invokeCallbacks(removedCallbacks));
+
+            Utils.wait(1, () => {
+                Utils.assertInvoked(insertedCallbacks, 1, 0, 0);
+                Utils.assertInvoked(removedCallbacks, 0, 0, 0);
+
+                $a.wrap('<div/>');
+
+                Utils.wait(1, () => {
+                    Utils.assertInvoked(insertedCallbacks, 2, 0, 0);
+                    Utils.assertInvoked(removedCallbacks, 1, 0, 0);
+
+                    done();
+                });
+            });
+        });
+
         it('Callbacks are not called multiple times for special cases (like wrap() / unwrap()) where child nodes' +
             ' are also reported as mutated', (done: MochaDone) => {
             let insertedCallbacks = Utils.createCallbacks(),
@@ -277,7 +309,8 @@ import chai from "chai";
             });
         });
 
-        it('Calling never(selector, insertedCallback, removedCallback) stops execution of exact callback(s)', (done: MochaDone) => {
+        it('Calling never(selector, insertedCallback, removedCallback) stops execution of exact callback(s)',
+            (done: MochaDone) => {
             let callbacksInsertedA = Utils.createCallbacks(),
                 callbacksInsertedB = Utils.createCallbacks(),
                 callbacksRemovedDIV = Utils.createCallbacks(),
@@ -334,7 +367,8 @@ import chai from "chai";
             });
         });
 
-        it('Adding a second "inserted" callback eligible for immediate execution does not trigger re-execution of the first one', (done: MochaDone) => {
+        it('Adding a second "inserted" callback eligible for immediate execution does not trigger re-execution of' +
+            ' the first one', (done: MochaDone) => {
             let callbacks = Utils.createCallbacks();
 
             $fixture
@@ -350,7 +384,8 @@ import chai from "chai";
             });
         });
 
-        it('Issuing multiple additions / removals invokes registered callbacks in a reasonable amount of time', (done: MochaDone) => {
+        it('Issuing multiple additions / removals invokes registered callbacks in a reasonable amount of time',
+            (done: MochaDone) => {
             let iteration = 1000,
                 elapsed = 0,
                 time = 0,
@@ -365,7 +400,8 @@ import chai from "chai";
                     let $els = $fixture.find('a, em, strong, span, div'),
                         go = 0 < $els.length && 0.5 > Math.random() ?
                             () => $els.first().remove() :
-                            () => $fixture.append('<' + ['a', 'em', 'strong', 'span', 'div'][Math.round(Math.random() * 4)] + '/>');
+                            () => $fixture.append('<' + ['a', 'em', 'strong', 'span', 'div'][Math.round(Math.random() *
+                                4)] + '/>');
 
                     time = new Date().getTime();
                     go();

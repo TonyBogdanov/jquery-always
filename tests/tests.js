@@ -35,9 +35,12 @@ chai = chai && chai.hasOwnProperty('default') ? chai['default'] : chai;
             };
         };
         Utils.assertInvoked = function (callbacks, a, b, div, prefix) {
-            assert.equal(callbacks.a.getInvoked(), a, (prefix ? prefix + ': ' : '') + 'Callback #a must be invoked ' + a + ' time(s) total');
-            assert.equal(callbacks.b.getInvoked(), b, (prefix ? prefix + ': ' : '') + 'Callback #b must be invoked ' + b + ' time(s) total');
-            assert.equal(callbacks.div.getInvoked(), div, (prefix ? prefix + ': ' : '') + 'Callback #div must be invoked ' + div + ' time(s) total');
+            assert.equal(callbacks.a.getInvoked(), a, (prefix ? prefix + ': ' : '') + 'Callback #a must be invoked ' +
+                a + ' time(s) total');
+            assert.equal(callbacks.b.getInvoked(), b, (prefix ? prefix + ': ' : '') + 'Callback #b must be invoked ' +
+                b + ' time(s) total');
+            assert.equal(callbacks.div.getInvoked(), div, (prefix ? prefix + ': ' : '') + 'Callback #div must be' +
+                ' invoked ' + div + ' time(s) total');
         };
         Utils.wait = function (frames, callback) {
             if (frames <= 0) {
@@ -124,6 +127,23 @@ chai = chai && chai.hasOwnProperty('default') ? chai['default'] : chai;
                 Utils.wait(1, function () {
                     Utils.assertInvoked(insertedCallbacks, 5, 4, 0);
                     Utils.assertInvoked(removedCallbacks, 5, 4, 0);
+                    done();
+                });
+            });
+        });
+        it('Callbacks are not called multiple times for special cases (like wrap()) where the element is already' +
+            ' in the Dom', function (done) {
+            var insertedCallbacks = Utils.createCallbacks(), removedCallbacks = Utils.createCallbacks();
+            $fixture
+                .append($a)
+                .always('a', Utils.invokeCallbacks(insertedCallbacks), Utils.invokeCallbacks(removedCallbacks));
+            Utils.wait(1, function () {
+                Utils.assertInvoked(insertedCallbacks, 1, 0, 0);
+                Utils.assertInvoked(removedCallbacks, 0, 0, 0);
+                $a.wrap('<div/>');
+                Utils.wait(1, function () {
+                    Utils.assertInvoked(insertedCallbacks, 2, 0, 0);
+                    Utils.assertInvoked(removedCallbacks, 1, 0, 0);
                     done();
                 });
             });
@@ -251,7 +271,8 @@ chai = chai && chai.hasOwnProperty('default') ? chai['default'] : chai;
                 });
             });
         });
-        it('Adding a second "inserted" callback eligible for immediate execution does not trigger re-execution of the first one', function (done) {
+        it('Adding a second "inserted" callback eligible for immediate execution does not trigger re-execution of' +
+            ' the first one', function (done) {
             var callbacks = Utils.createCallbacks();
             $fixture
                 .append($a.attr('data-ab', ''))
@@ -273,7 +294,8 @@ chai = chai && chai.hasOwnProperty('default') ? chai['default'] : chai;
                 }
                 var $els = $fixture.find('a, em, strong, span, div'), go = 0 < $els.length && 0.5 > Math.random() ?
                     function () { return $els.first().remove(); } :
-                    function () { return $fixture.append('<' + ['a', 'em', 'strong', 'span', 'div'][Math.round(Math.random() * 4)] + '/>'); };
+                    function () { return $fixture.append('<' + ['a', 'em', 'strong', 'span', 'div'][Math.round(Math.random() *
+                        4)] + '/>'); };
                 time = new Date().getTime();
                 go();
             };

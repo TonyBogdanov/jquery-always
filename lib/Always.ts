@@ -91,7 +91,11 @@ export class Always
         if ('function' === typeof onInserted) {
             instance.addInsertedCallback(selector, onInserted);
 
+            // invoke the inserted callback on all matching elements already in the dom
+            // this invocation is always forced even if the element's last operation was an insertion
+            // we still need to mark the element, though, to avoid future duplicate notifies
             [].forEach.call(element.querySelectorAll(selector), (node: HTMLElement) => {
+                Always.data(node).lastOperation = AlwaysData.OPERATION_INSERTION;
                 onInserted.call(node);
             });
         }

@@ -88,6 +88,8 @@ import chai from "chai";
         $fixture.remove();
     });
 
+    let isIE11 = !!window['MSInputMethodContext'] && !!document['documentMode'];
+
     describe('jQuery.Always', () => {
         it('Dependencies have resolved', () => {
             // in safari 8 & some ios MutationObserver is an object, not a function
@@ -150,24 +152,21 @@ import chai from "chai";
             });
         });
 
-        it('Callbacks are also executed for selectors matching children (deep) of mutated' +
-            ' elements', (done: MochaDone) => {
-            let insertedCallbacks = Utils.createCallbacks(),
-                removedCallbacks = Utils.createCallbacks();
+        (isIE11 ? it.skip : it)('"Removed" callbacks are also executed for selectors matching children (deep) of' +
+            ' mutated elements', (done: MochaDone) => {
+            let callbacks = Utils.createCallbacks();
 
             $fixture
-                .always('a, b', Utils.invokeCallbacks(insertedCallbacks), Utils.invokeCallbacks(removedCallbacks))
+                .always('a, b', null, Utils.invokeCallbacks(callbacks))
                 .append('<a></a><a><b></b></a><a></a><b></b><div><a></a><a><b></b></a><b></b></div>');
 
             Utils.wait(1, () => {
-                Utils.assertInvoked(insertedCallbacks, 5, 4, 0);
-                Utils.assertInvoked(removedCallbacks, 0, 0, 0);
+                Utils.assertInvoked(callbacks, 0, 0, 0);
 
                 $fixture.html('');
 
                 Utils.wait(1, () => {
-                    Utils.assertInvoked(insertedCallbacks, 5, 4, 0);
-                    Utils.assertInvoked(removedCallbacks, 5, 4, 0);
+                    Utils.assertInvoked(callbacks, 5, 4, 0);
 
                     done();
                 });

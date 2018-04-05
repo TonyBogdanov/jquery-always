@@ -281,9 +281,11 @@ export class Always
         this.notifyCallbacks(element, this.insertedCallbacks, AlwaysData.OPERATION_INSERTION);
 
         // we need to manually cascade notify all child nodes as the observer won't do it automatically
-        [].forEach.call(element.children, (node: HTMLElement) => {
-            this.notifyInserted(node);
-        });
+        if (element.children) {
+            for (let node: HTMLElement of element.children) {
+                this.notifyInserted(node);
+            }
+        }
 
         return this;
     }
@@ -297,9 +299,11 @@ export class Always
     public notifyRemoved(element: HTMLElement): Always
     {
         // we need to manually cascade notify all child nodes as the observer won't do it automatically
-        [].forEach.call(element.children, (node: HTMLElement) => {
-            this.notifyRemoved(node);
-        });
+        if (element.children) {
+            for (let node: HTMLElement of element.children) {
+                this.notifyRemoved(node);
+            }
+        }
 
         // callbacks for removals are invoked for deepest children first
         this.notifyCallbacks(element, this.removedCallbacks, AlwaysData.OPERATION_REMOVAL);

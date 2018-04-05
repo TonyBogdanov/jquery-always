@@ -66,6 +66,7 @@ chai = chai && chai.hasOwnProperty('default') ? chai['default'] : chai;
     afterEach(function () {
         $fixture.remove();
     });
+    var isIE11 = !!window['MSInputMethodContext'] && !!document['documentMode'];
     describe('jQuery.Always', function () {
         it('Dependencies have resolved', function () {
             var mo = typeof window.MutationObserver, wmo = typeof window.WebKitMutationObserver;
@@ -114,19 +115,17 @@ chai = chai && chai.hasOwnProperty('default') ? chai['default'] : chai;
                 done();
             });
         });
-        it('Callbacks are also executed for selectors matching children (deep) of mutated' +
-            ' elements', function (done) {
-            var insertedCallbacks = Utils.createCallbacks(), removedCallbacks = Utils.createCallbacks();
+        (isIE11 ? it.skip : it)('"Removed" callbacks are also executed for selectors matching children (deep) of' +
+            ' mutated elements', function (done) {
+            var callbacks = Utils.createCallbacks();
             $fixture
-                .always('a, b', Utils.invokeCallbacks(insertedCallbacks), Utils.invokeCallbacks(removedCallbacks))
+                .always('a, b', null, Utils.invokeCallbacks(callbacks))
                 .append('<a></a><a><b></b></a><a></a><b></b><div><a></a><a><b></b></a><b></b></div>');
             Utils.wait(1, function () {
-                Utils.assertInvoked(insertedCallbacks, 5, 4, 0);
-                Utils.assertInvoked(removedCallbacks, 0, 0, 0);
+                Utils.assertInvoked(callbacks, 0, 0, 0);
                 $fixture.html('');
                 Utils.wait(1, function () {
-                    Utils.assertInvoked(insertedCallbacks, 5, 4, 0);
-                    Utils.assertInvoked(removedCallbacks, 5, 4, 0);
+                    Utils.assertInvoked(callbacks, 5, 4, 0);
                     done();
                 });
             });

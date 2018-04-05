@@ -39,6 +39,9 @@
         "browser": "edge",
         "browser_version": "16"
     }, {
+        "browser": "ie",
+        "browser_version": "11"
+    }, {
         "os": "android",
         "os_version": "4.4",
         "browser": "android"

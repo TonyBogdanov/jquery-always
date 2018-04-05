@@ -230,13 +230,15 @@ var Always = /** @class */ (function () {
      * @returns {Always}
      */
     Always.prototype.notifyInserted = function (element) {
-        var _this = this;
         // callbacks for insertions are invoked for parents first
         this.notifyCallbacks(element, this.insertedCallbacks, AlwaysData.OPERATION_INSERTION);
         // we need to manually cascade notify all child nodes as the observer won't do it automatically
-        [].forEach.call(element.children, function (node) {
-            _this.notifyInserted(node);
-        });
+        if (element.children) {
+            for (var _i = 0, _a = element.children; _i < _a.length; _i++) {
+                var node = _a[_i];
+                this.notifyInserted(node);
+            }
+        }
         return this;
     };
     /**
@@ -246,11 +248,13 @@ var Always = /** @class */ (function () {
      * @returns {Always}
      */
     Always.prototype.notifyRemoved = function (element) {
-        var _this = this;
         // we need to manually cascade notify all child nodes as the observer won't do it automatically
-        [].forEach.call(element.children, function (node) {
-            _this.notifyRemoved(node);
-        });
+        if (element.children) {
+            for (var _i = 0, _a = element.children; _i < _a.length; _i++) {
+                var node = _a[_i];
+                this.notifyRemoved(node);
+            }
+        }
         // callbacks for removals are invoked for deepest children first
         this.notifyCallbacks(element, this.removedCallbacks, AlwaysData.OPERATION_REMOVAL);
         return this;

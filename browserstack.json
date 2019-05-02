@@ -28,10 +28,10 @@
         "browser_version": "10.1"
     }, {
         "browser": "safari",
-        "browser_version": "11"
+        "browser_version": "11.1"
     }, {
-        "browser": "edge",
-        "browser_version": "14"
+        "browser": "safari",
+        "browser_version": "12"
     }, {
         "browser": "edge",
         "browser_version": "15"
@@ -71,7 +71,7 @@
         "browser": "android"
     }, {
         "os": "ios",
-        "os_version": "10.3",
+        "os_version": "10.0",
         "browser": "iphone"
     }, {
         "os": "ios",
@@ -79,7 +79,7 @@
         "browser": "iphone"
     }, {
         "os": "ios",
-        "os_version": "11.2",
+        "os_version": "12.0",
         "browser": "iphone"
     }]
 }
